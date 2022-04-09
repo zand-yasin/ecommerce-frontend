@@ -8,6 +8,8 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
+// provider comes with store.js both working together
 root.render(
   <Provider store={store}>
     <App />
