@@ -25,7 +25,10 @@ export const productDetailsReducer = (
 ) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
-      return { loading: true, ...state }
+      //  it's much nicer if you replace ...state to product: {}
+      // affects shown when you open the product detail page, it's waitng for new product
+      // rather reload old one before load new one
+      return { loading: true, product: {} }
     case PRODUCT_DETAILS_SUCCESS:
       return { loading: false, product: action.payload }
     case PRODUCT_DETAILS_FAIL:
