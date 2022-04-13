@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const ProductScreen = () => {
-  const [qty, setQty] = useState(0)
+  const [qty, setQty] = useState(1)
   const navigate = useNavigate()
 
   const { id } = useParams()
