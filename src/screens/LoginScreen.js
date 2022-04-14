@@ -10,12 +10,22 @@ import { login } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
 
 const LoginScreen = () => {
+  const dispatch = useDispatch()
+
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+
+  const navigate = useNavigate()
+
   const [redirectParams, setredirectParams] = useSearchParams()
   let redirect = redirectParams.get('redirect')
 
-  if (!redirect) redirect = '/login'
+  // console.log(redirect)
+  const userLogin = useSelector((state) => state.userLogin)
+
+  const { loading, error, userInfo } = userLogin
+
+  if (userInfo && userInfo.name) redirect = '/'
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -24,17 +34,12 @@ const LoginScreen = () => {
     dispatch(login(email, password))
   }
 
-  const dispatch = useDispatch()
-  const userLogin = useSelector((state) => state.userLogin)
-
-  const { loading, error, userInfo } = userLogin
-  const navigate = useNavigate()
-
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && userInfo.name) redirect = '/'
+    if (userInfo && userInfo.name) {
       navigate(redirect)
     }
-  }, [navigate, userInfo, redirect])
+  }, [redirectParams, navigate, userInfo, redirect])
 
   return (
     <Container>
@@ -70,10 +75,13 @@ const LoginScreen = () => {
 
           <Row className='py-3'></Row>
           <Col>
-            New Customer
+            New Customer?
             <Link
               to={redirect ? `/register?redirect=${redirect}` : '/register'}
-            ></Link>
+            >
+              {' '}
+              Register
+            </Link>
           </Col>
         </Col>
       </Row>
