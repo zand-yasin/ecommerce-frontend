@@ -6,17 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 
-import { getUserDetail } from '../actions/userActions'
+import { getUserDetail, updateUserProfile } from '../actions/userActions'
 
 const ProfileScreen = () => {
-  const dispatch = useDispatch()
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   // console.log(redirect)
@@ -26,19 +25,26 @@ const ProfileScreen = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+  const { success } = userUpdateProfile
+
   const submitHandler = (e) => {
     e.preventDefault()
     // DISPATCH DETAILS
     if (password !== confirmPassword) {
-      setMessage('Password do not match')
+      setMessage('Passwords do not match')
     } else {
       // DISPATCH UPDATE PROFILE
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
       // dispatch(Details(name, email, password))
     }
   }
 
   useEffect(() => {
-    if (!userInfo && !userInfo.name) {
+    console.log(userInfo)
+    console.log(userInfo)
+    console.log(!userInfo)
+    if (!userInfo || Array.isArray(userInfo)) {
       navigate('/login')
     } else {
       if (!user.name) {
@@ -56,6 +62,7 @@ const ProfileScreen = () => {
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
+        {success && <Message variant='success'>Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='name'>
