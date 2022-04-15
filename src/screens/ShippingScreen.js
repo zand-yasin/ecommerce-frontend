@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingAddress } from '../actions/cartActions'
+import CheckoutSteps from '../components/CheckoutSteps'
 import { register } from '../actions/userActions'
 const ShippingScreen = () => {
   const cart = useSelector((state) => state.cart)
@@ -31,6 +32,7 @@ const ShippingScreen = () => {
     <Container>
       <Row className='justify-content-md-center'>
         <Col xs={12} md={6}>
+          <CheckoutSteps step1 step2 />
           <h1>Shipping </h1>
           <Form onSubmit={submitHandler}>
             <Form.Group controlId='address'>
