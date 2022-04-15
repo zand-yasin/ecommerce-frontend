@@ -19,13 +19,9 @@ const ShippingScreen = () => {
   const navigate = useNavigate()
 
   const submitHandler = (e) => {
-    console.log(1)
     e.preventDefault()
-    console.log(2)
     dispatch(saveShippingAddress({ address, city, postalCode, country }))
-    console.log(3)
     navigate('/payment')
-    console.log(4)
   }
 
   return (
