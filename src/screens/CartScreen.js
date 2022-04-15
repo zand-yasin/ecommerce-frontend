@@ -8,7 +8,7 @@ import Product from '../components/Product'
 const CartScreen = () => {
   const { id } = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
-  const qty = searchParams.get('qty')
+  const quantity = searchParams.get('quantity')
 
   const navigate = useNavigate()
 
@@ -22,9 +22,9 @@ const CartScreen = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(addToCart(id, qty))
+      dispatch(addToCart(id, quantity))
     }
-  }, [dispatch, id, qty])
+  }, [dispatch, id, quantity])
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
@@ -63,7 +63,7 @@ const CartScreen = () => {
                   <Col md={2}>
                     <Form.Control
                       as='select'
-                      value={item.qty}
+                      value={item.quantity}
                       onChange={(e) =>
                         dispatch(
                           addToCart(item.product, Number(e.target.value))
@@ -99,12 +99,13 @@ const CartScreen = () => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)} )
+                Subtotal (
+                {cartItems.reduce((acc, item) => acc + item.quantity, 0)} )
                 items
               </h2>
               $
               {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .reduce((acc, item) => acc + item.quantity * item.price, 0)
                 .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const ProductScreen = () => {
-  const [qty, setQty] = useState(1)
+  const [quantity, setquantity] = useState(1)
   const navigate = useNavigate()
 
   const { id } = useParams()
@@ -30,7 +30,7 @@ const ProductScreen = () => {
   const addToCartHandler = () => {
     console.log(111111111)
 
-    navigate(`/cart/${id}?qty=${qty}`)
+    navigate(`/cart/${id}?quantity=${quantity}`)
   }
 
   return (
@@ -87,12 +87,12 @@ const ProductScreen = () => {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row>
-                      <Col>Qty:</Col>
+                      <Col>Quantity:</Col>
                       <Col>
                         <Form.Control
                           as='select'
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
+                          value={quantity}
+                          onChange={(e) => setquantity(e.target.value)}
                         >
                           {[...Array(product.countInStock).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
